@@ -37,6 +37,7 @@ end
 
 -- function for start pulsing!
 function led_pulse ()
+    util_log("Led", "Starting LED pulse...")
     -- release the pin
     led_reset()
     -- initialize PWM on specified pin
