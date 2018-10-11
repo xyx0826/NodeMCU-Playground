@@ -6,12 +6,18 @@ pwm_duty_min = 25
 pwm_duty_mid = 70
 pwm_duty_max = 115
 
+pwm_duty_timeout = 1500
+
 -- for servo #2 compatibility
 pwm_duty_offset = 0
 
-tmr.alarm(1, 1000, tmr.ALARM_SEMI, 
+-- block duplicate commands
+pwm_active = false
+
+tmr.alarm(1, pwm_duty_timeout, tmr.ALARM_SEMI, 
     function()
         pwm.stop(pwm_pin)
+        pwm_active = false
         util_log("Pwm", "Command timed out. Servo released.")
     end)
 

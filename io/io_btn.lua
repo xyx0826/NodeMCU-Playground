@@ -1,7 +1,16 @@
 io_flash_btn = 3
 
 function do_io_btn (level, when, eventcount)
-    pwm_set_angle(45)
+    if (pwm_active) then
+        util_log("Io", "PWM already active. Command blocked.")
+        return
+    end
+    
+    if (adc_check_max()) then
+        pwm_set_angle(-90)
+    else
+        pwm_set_angle(90)
+    end
 end
 
 function io_btn ()

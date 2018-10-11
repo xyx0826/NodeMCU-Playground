@@ -8,6 +8,7 @@ function pwm_set_angle (deg)
 
     local degDuty = (deg + 90) / 2 + 25 + pwm_duty_offset
     util_log("Pwm", "Setting PWM duty to " .. degDuty)
+    pwm_active = true
     pwm.setduty(pwm_pin, degDuty)
     pwm.start(pwm_pin)
     tmr.start(1)

@@ -17,10 +17,10 @@ function init ()
     util_log("Init", "Entering initialization...")
     local list = file.list();
     for name, size in pairs(list) do
-        util_log("Init", "reading " 
-        .. name .. "\t(" .. size .. ") Bytes")
         if (name ~= "init.lua" 
             and not util_starts_with(name, "FLAG")) then 
+            util_log("Init", "reading " 
+            .. name .. "\t(" .. size .. ") Bytes")
             dofile(name)
         end
     end
