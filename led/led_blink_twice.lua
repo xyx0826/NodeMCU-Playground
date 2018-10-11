@@ -24,6 +24,7 @@ end
 
 -- function for start blinking!
 function led_blink_twice ()
+    led_reset()
     -- enable GPIO and get going
     gpio.mode(4, gpio.OUTPUT)
     tmr.alarm(0, 100, tmr.ALARM_AUTO, do_led_blink_twice)

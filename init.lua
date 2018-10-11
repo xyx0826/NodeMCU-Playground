@@ -19,18 +19,26 @@ function init ()
     for name, size in pairs(list) do
         util_log("Init", "reading " 
         .. name .. "\t(" .. size .. ") Bytes")
-        if (name ~= "init.lua") then 
+        if (name ~= "init.lua" 
+            and not util_starts_with(name, "FLAG")) then 
             dofile(name)
         end
     end
     util_log("Init", "All scripts registered.")
     tmr.stop(0)
-    
-    led_pulse()
+
+    led_pulse() -- register the LED pulse timer
     pwm_servo_init()
+    io_btn()
+    wifi_ap_events()
 end
 
-util_log("Init", "Script initialization about to begin in " .. regDelaySeconds .. " second(s).")
-init_timer = tmr.create()
-tmr.register(init_timer, regDelaySeconds * 1000, tmr.ALARM_SINGLE, init)
-tmr.start(init_timer)
+if (not file.exists("SKIP_INIT"))
+then
+    util_log("Init", "Script initialization about to begin in " .. regDelaySeconds .. " second(s).")
+    init_timer = tmr.create()
+    tmr.register(init_timer, regDelaySeconds * 1000, tmr.ALARM_SINGLE, init)
+    tmr.start(init_timer)
+else
+    util_log("Init", "SKIP_INIT found. Initialization skipped.")
+end

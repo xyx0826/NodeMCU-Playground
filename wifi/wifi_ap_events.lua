@@ -8,6 +8,7 @@ function wifi_ap_events ()
             print(
                 string.format("Client connecting: %s", T.MAC)
             )
+            pwm_set_angle(90)
         end
     )
 
@@ -18,6 +19,7 @@ function wifi_ap_events ()
             print(
                 string.format("Client disconnecting: %s", T.MAC)
             )
+            pwm_set_angle(-90)
         end
     )
 end
